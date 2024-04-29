@@ -1,11 +1,10 @@
 <?php
 
+use App\Http\Controllers\MainController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [MainController::class, 'home']);
 
-Route::get('/home', function () {
-    return view('home');
-});
+Route::get('/calc', [MainController::class, 'calc']);
+
+Route::get('/results', [MainController::class, 'results']);
