@@ -42,20 +42,19 @@ return [
         'mysql' => [
             'read' => [
                 'host' => [
-                    '192.168.1.1',
-                    '196.168.1.2',
+                    env('DB_HOST'),
                 ],
             ],
             'write' => [
                 'host' => [
-                    '196.168.1.3',
+                    env('DB_HOST'),
                  ],
             ],
             'sticky'    => true,
             'driver'    => 'mysql',
-            'database'  => 'laravel',
-            'username'  => 'root',
-            'password'  => '',
+            'database'  => env('DB_DATABASE'),
+            'username'  => env('DB_USERNAME'),
+            'password'  => env('DB_PASSWORD'),
             'charset'   => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
             'prefix'    => '',
