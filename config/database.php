@@ -54,7 +54,7 @@ return [
             'driver'    => 'mysql',
             'database'  => env('DB_DATABASE'),
             'username'  => env('DB_USERNAME'),
-            'password'  => env('DB_PASSWORD'),
+            'password'  => '',
             'charset'   => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
             'prefix'    => '',

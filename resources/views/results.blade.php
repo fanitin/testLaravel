@@ -8,7 +8,7 @@
         <legend class="text-white">Opcje wyszukiwania</legend>
         <fieldset>
             <div class="flex justify-content-space-between">
-                <input type="text" placeholder="Numer telefonu" name="search_phone" value="{{ old('search_phone') }}">
+                <input type="text" placeholder="Numer telefonu" name="searchForm" value="{{ old('searchForm') }}">
                 <button type="submit" class="btn btn-primary">Szukaj</button>
             </div>
         </fieldset>
@@ -60,7 +60,10 @@
                 <td>{{ $r->data }}</td>
                 <td>{{ $r->phone }}</td>
                 <td>
-                    <a href="/results{{$r->id_wynik}}">Usuń</a>
+                    <form action="/results/{{$r->id_wynik}}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn btn-danger">Usuń</button>
+                    </form>
                 </td>
             </tr>
         @endforeach
