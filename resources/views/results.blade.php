@@ -20,8 +20,8 @@
         <legend class="text-white">Opcje sortowania</legend>
         <fieldset>
             <div class="flex justify-content-space-between">
-                <select name="sort_type">
-                    <option value="id_wynik" @if ($sortType == 'id_wynik')selected @endif>Id_wynik</option>
+                <select name="sortType">
+                    <option value="id_wynik" @if ($sortType == 'id')selected @endif>Id</option>
                     <option value="kwota" @if ($sortType == 'kwota')selected @endif>Kwota</option>
                     <option value="years" @if ($sortType == 'years')selected @endif>Years</option>
                     <option value="procent" @if ($sortType == 'procent')selected @endif>Procent</option>
@@ -29,7 +29,7 @@
                     <option value="data" @if ($sortType == 'data')selected @endif>Data</option>
                     <option value="phone" @if ($sortType == 'phone')selected @endif>Phone</option>
                 </select>
-                <select name="sort_order">
+                <select name="sortOrder">
                     <option value="ASC" @if ($sortOrder == 'ASC')selected @endif>Rosnąco</option>
                     <option value="DESC" @if ($sortOrder == 'DESC')selected @endif>Malejąco</option>
                 </select>
@@ -52,7 +52,7 @@
         <tr>
         @foreach ($records as $r)
             <tr>
-                <td>{{ $r->id_wynik }}</td>
+                <td>{{ $r->id}}</td>
                 <td>{{ $r->kwota }}</td>
                 <td>{{ $r->years }}</td>
                 <td>{{ $r->procent }}</td>
@@ -60,7 +60,7 @@
                 <td>{{ $r->data }}</td>
                 <td>{{ $r->phone }}</td>
                 <td>
-                    <form action="/results/{{$r->id_wynik}}" method="POST">
+                    <form action="/results/{{$r->id}}" method="POST">
                         @csrf
                         <button type="submit" class="btn btn-danger">Usuń</button>
                     </form>

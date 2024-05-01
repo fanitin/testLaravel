@@ -54,11 +54,11 @@ class CalcController extends Controller{
 
 
     public function sendToOEController(){
-        $this->oectrl->oeForm->kwota = $this->form->kwota;
-        $this->oectrl->oeForm->years = $this->form->years;
-        $this->oectrl->oeForm->procent = $this->form->proc;
-        $this->oectrl->oeForm->phone = $this->form->phone;
-        $this->oectrl->oeForm->wynik = $this->result->result;
-        $this->oectrl->oeForm->data = date('Y-m-d H:i:s');
+        $this->oectrl->result->kwota = $this->form->kwota;
+        $this->oectrl->result->years = $this->form->years;
+        $this->oectrl->result->procent = $this->form->proc;
+        $this->oectrl->result->phone = $this->form->phone;
+        $this->oectrl->result->wynik = $this->result->result;
+        $this->oectrl->result->data = date('Y-m-d H:i:s');
     }
 }

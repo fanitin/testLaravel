@@ -2,32 +2,32 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Result;
 use Illuminate\Http\Request;
-use App\Http\Forms\OperationEditForm;
 use Illuminate\Support\Facades\DB;
 
 class OperationEditController extends Controller{
-    public $oeForm;
+    public $result;
     private $searchForm;
     private $records;
-    private $sort_type;
-    private $sort_order;
+    private $sortType;
+    private $sortOrder;
 
     public function __construct(){
-        $this->oeForm = new OperationEditForm();
+        $this->result = new Result();
     }
 
     public function operationSave(){
         try {
             $data = [
-                'kwota' => $this->oeForm->kwota,
-                'years' => $this->oeForm->years,
-                'procent' => $this->oeForm->procent,
-                'wynik' => $this->oeForm->wynik,
-                'data' => $this->oeForm->data,
-                'phone' => $this->oeForm->phone
+                'kwota' => $this->result->kwota,
+                'years' => $this->result->years,
+                'procent' => $this->result->procent,
+                'wynik' => $this->result->wynik,
+                'data' => $this->result->data,
+                'phone' => $this->result->phone
             ];
-            OperationEditForm::create($data);
+            Result::create($data);
         } catch (\Exception $e) {
             dd($e->getMessage());
         }
@@ -35,7 +35,7 @@ class OperationEditController extends Controller{
 
     public function operationDelete($id){
         try{
-            $us = OperationEditForm::find($id);
+            $us = Result::find($id);
             $us->delete();
         } catch(\Exception $e) {
             dd($e->getMessage());
@@ -45,23 +45,23 @@ class OperationEditController extends Controller{
 
 
     public function operationList(Request $request){
-        $searchForm = $request->input("searchForm");
-        $sortType = $request->input("sort_type");
-        $sortOrder = $request->input("sort_order");
+        $this->searchForm = $request->input("searchForm");
+        $this->sortType = $request->input("sortType");
+        $this->sortOrder = $request->input("sortOrder");
 
-        $query = DB::table('main');
+        $query = DB::table('results');
 
-        if (!empty($searchForm)) {
-            $query->where('phone', 'like', "%$searchForm%");
+        if (!empty($this->searchForm)) {
+            $query->where('phone', 'like', "%$this->searchForm%");
         }
 
-        if (!empty($sortType) && !empty($sortOrder)) {
-            $query->orderBy($sortType, $sortOrder);
+        if (!empty($this->sortType) && !empty($this->sortOrder)) {
+            $query->orderBy($this->sortType, $this->sortOrder);
         }
 
         try {
             $records = $query->get();
-            return view('/results', ['records' => $records, 'sortType' => $sortType, 'sortOrder' => $sortOrder, 'searchForm' => $searchForm]);
+            return view('/results', ['records' => $records, 'sortType' => $this->sortType, 'sortOrder' => $this->sortOrder, 'searchForm' => $this->searchForm]);
         } catch (\Exception $e) {
             return redirect()->back()->withErrors('Wystąpił błąd: ' . $e->getMessage());
         }

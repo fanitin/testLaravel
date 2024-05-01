@@ -1,13 +1,15 @@
 <?php
-namespace App\Http\Forms;
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class OperationEditForm extends Model{
-    protected $table = 'main';
+class Result extends Model{
+    use HasFactory;
+    protected $table = 'results';
     public $timestamps = false;
-    protected $skipTimestamps = true;
     protected $fillable = ['kwota', 'years', 'procent', 'wynik', 'data', 'phone'];
-    protected $primaryKey = 'id_wynik';
     public $id;
     public $kwota;
     public $years;
@@ -15,5 +17,4 @@ class OperationEditForm extends Model{
     public $wynik;
     public $data;
     public $phone;
-
 }
