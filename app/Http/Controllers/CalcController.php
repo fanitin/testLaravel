@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Forms\CalcForm;
-use App\Http\Forms\CalcResult;
 use App\Http\Controllers\OperationEditController;
 
 class CalcController extends Controller{
@@ -14,7 +13,6 @@ class CalcController extends Controller{
 
     public function __construct(){
         $this->form = new CalcForm();
-        $this->result = new CalcResult();
         $this->oectrl = new OperationEditController();
     }
 
@@ -39,7 +37,7 @@ class CalcController extends Controller{
             $this->form->kwota = intval($this->form->kwota);
             $this->form->proc = floatval($this->form->proc);
             $this->form->years = floatval($this->form->years);
-            $this->result->result = ($this->form->kwota + ($this->form->kwota * $this->form->proc/100)) / ($this->form->years*12);
+            $this->result = ($this->form->kwota + ($this->form->kwota * $this->form->proc/100)) / ($this->form->years*12);
 
             $this->sendToOEController();
             $this->oectrl->operationSave();
@@ -58,7 +56,7 @@ class CalcController extends Controller{
         $this->oectrl->result->years = $this->form->years;
         $this->oectrl->result->procent = $this->form->proc;
         $this->oectrl->result->phone = $this->form->phone;
-        $this->oectrl->result->wynik = $this->result->result;
+        $this->oectrl->result->wynik = $this->result;
         $this->oectrl->result->data = date('Y-m-d H:i:s');
     }
 }

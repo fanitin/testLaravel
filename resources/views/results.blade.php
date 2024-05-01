@@ -49,23 +49,32 @@
             <th>Data</th>
             <th>Phone</th>
             <th>Usuwanie</th>
+            <th>Edycja</th>
         <tr>
         @foreach ($records as $r)
-            <tr>
-                <td>{{ $r->id}}</td>
-                <td>{{ $r->kwota }}</td>
-                <td>{{ $r->years }}</td>
-                <td>{{ $r->procent }}</td>
-                <td>{{ $r->wynik }}</td>
-                <td>{{ $r->data }}</td>
-                <td>{{ $r->phone }}</td>
-                <td>
-                    <form action="/results/{{$r->id}}" method="POST">
-                        @csrf
-                        <button type="submit" class="btn btn-danger">Usuń</button>
-                    </form>
-                </td>
-            </tr>
+            @if ($r->deleted_at == null)
+                <tr>
+                    <td>{{ $r->id}}</td>
+                    <td>{{ $r->kwota }}</td>
+                    <td>{{ $r->years }}</td>
+                    <td>{{ $r->procent }}</td>
+                    <td>{{ $r->wynik }}</td>
+                    <td>{{ $r->data }}</td>
+                    <td>{{ $r->phone }}</td>
+                    <td>
+                        <form action="/result/delete" method="POST">
+                            @csrf
+                            <button type="submit" class="btn btn-danger" value="{{$r->id}}" name="idDelete">Usuń</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="/result/edit" method="POST">
+                            @csrf
+                            <button type="submit" class="btn btn-warning" value="{{$r->id}}" name="idEdit">Zmień</button>
+                        </form>
+                    </td>
+                </tr>
+            @endif
         @endforeach
     </table>
 @endsection

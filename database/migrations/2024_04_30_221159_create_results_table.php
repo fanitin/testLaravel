@@ -19,7 +19,7 @@ return new class extends Migration
             $table->double('wynik');
             $table->dateTime('data')->default(date('Y-m-d H:i:s'));
             $table->string('phone');
-            $table->softDeletes('deleted_at');
+            $table->softDeletes();
         });
     }
 

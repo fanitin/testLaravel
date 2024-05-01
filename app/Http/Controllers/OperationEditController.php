@@ -33,16 +33,49 @@ class OperationEditController extends Controller{
         }
     }
 
-    public function operationDelete($id){
+    public function operationDelete(Request $request){
+        $id = $request->input('idDelete');
         try{
             $us = Result::find($id);
-            $us->delete();
+            if($us->deleted_at == null){
+                $us->delete();
+            }
         } catch(\Exception $e) {
             dd($e->getMessage());
         }
         return redirect()->route('resultView');
     }
 
+
+    
+    public function operationSendToEdit(Request $request){
+        $id = $request->input('idEdit');
+        return view('/resultEdit', ['id' => $id]);
+    }
+
+
+    public function operationEdit(Request $request){
+        if (!$request->filled(['kwota', 'years', 'procent', 'phone'])) {
+            return redirect()->back()->withErrors('Proszę wypełnić wszystkie pola.');
+        }
+        $request->validate([
+            'kwota' => 'required|numeric',
+            'years' => 'required|numeric',
+            'procent' => 'required|numeric',
+            'phone' => 'required|string|regex:/^\+48[0-9]{9}$/'
+        ]);
+        $id = $request->input('idEdit');
+        $operation = Result::find($id);
+        $operation->update([
+            'kwota' => $request->input('kwota'),
+            'years' => $request->input('years'),
+            'procent' => $request->input('procent'),
+            'wynik' => ($request->input('kwota') + ($request->input('kwota') * $request->input('proc')/100)) / ($request->input('years')*12),
+            'data' => date('Y-m-d H:i:s'),
+            'phone' => $request->input('phone')
+        ]);
+        return redirect()->route('resultView');
+    }
 
     public function operationList(Request $request){
         $this->searchForm = $request->input("searchForm");
