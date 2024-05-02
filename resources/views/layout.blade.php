@@ -10,9 +10,8 @@
 </head>
 
 <body class="bg-dark">
-    <header
-        class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom bg-dark">
-        <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+    <header class="d-flex flex-wrap align-items-center justify-content-between justify-content-md-between py-3 mb-4 border-bottom bg-dark">
+        <ul class="nav col-12 col-md-auto mb-2 justify-content-start mb-md-0">
             <li><a href="/" class="nav-link px-2 link-secondary text-white">Strona główna</a></li>
             <li><a href="/calc" class="nav-link px-2 link-dark text-white">Oblicz</a></li>
             <li><a href="/results" class="nav-link px-2 link-dark text-white">Poprzednie wyniki</a></li>
@@ -28,6 +27,15 @@
         @yield('main_content')
     </div>
 
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 </body>
 
 </html>

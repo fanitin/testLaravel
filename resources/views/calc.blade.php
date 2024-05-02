@@ -21,15 +21,6 @@
     </fieldset>
 </form>
 
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
 @if (isset($result))
     <p class="text-white">Kwota: {{$form->kwota}}, lat: {{$form->years}}, oprocentowanie: {{$form->proc}}</p>
     <p class="text-white">Wynik: {{$result}}</p>
