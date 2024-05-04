@@ -5,9 +5,9 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OperationEditController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [HomeController::class, 'home']);
-Route::get('/calc', [CalcController::class, 'genView']);
-Route::get('/results', [OperationEditController::class, 'operationList'])->name('resultView');
+Route::get('/', [HomeController::class, 'home'])->name('home.index');
+Route::get('/calc', [CalcController::class, 'genView'])->name('calc.index');
+Route::get('/results', [OperationEditController::class, 'operationList'])->name('result.index');
 Route::get('/result/edit', [OperationEditController::class, 'operationSendToEdit']);
 
 

@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layouts.layout')
 @section('page_title')
     Kalkulator kredytowy
 @endsection
