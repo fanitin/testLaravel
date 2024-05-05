@@ -33,24 +33,21 @@ class OperationEditController extends Controller{
         }
     }
 
-    public function operationDelete(Request $request){
-        $id = $request->input('idDelete');
+    public function operationDelete(Result $result){
         try{
-            $us = Result::find($id);
-            if($us->deleted_at == null){
-                $us->delete();
+            if($result->deleted_at == null){
+                $result->delete();
             }
         } catch(\Exception $e) {
             dd($e->getMessage());
         }
-        return redirect()->route('resultView');
+        return redirect()->route('result.index');
     }
 
 
     
-    public function operationSendToEdit(Request $request){
-        $id = $request->input('idEdit');
-        return view('/resultEdit', ['id' => $id]);
+    public function operationSendToEdit(Result $result){
+        return view('result.edit', ['result' => $result]);
     }
 
 
@@ -74,7 +71,7 @@ class OperationEditController extends Controller{
             'data' => date('Y-m-d H:i:s'),
             'phone' => $request->input('phone')
         ]);
-        return redirect()->route('resultView');
+        return redirect()->route('result.index');
     }
 
     public function operationList(Request $request){
@@ -94,7 +91,7 @@ class OperationEditController extends Controller{
 
         try {
             $records = $query->get();
-            return view('/results', ['records' => $records, 'sortType' => $this->sortType, 'sortOrder' => $this->sortOrder, 'searchForm' => $this->searchForm]);
+            return view('result.index', ['records' => $records, 'sortType' => $this->sortType, 'sortOrder' => $this->sortOrder, 'searchForm' => $this->searchForm]);
         } catch (\Exception $e) {
             return redirect()->back()->withErrors('Wystąpił błąd: ' . $e->getMessage());
         }

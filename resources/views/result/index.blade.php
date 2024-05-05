@@ -3,7 +3,7 @@
     Poprzednie wyniki
 @endsection
 @section('main_content')
-    <form action="/results" method="POST">
+    <form action="{{route('result.search')}}" method="POST">
         @csrf
         <legend class="text-white">Opcje wyszukiwania</legend>
         <fieldset>
@@ -15,7 +15,7 @@
     </form>
 
 
-    <form action="/results" method="POST">
+    <form action="{{route('result.search')}}" method="POST">
         @csrf
         <legend class="text-white">Opcje sortowania</legend>
         <fieldset>
@@ -62,16 +62,10 @@
                     <td>{{ $r->data }}</td>
                     <td>{{ $r->phone }}</td>
                     <td>
-                        <form action="/result/delete" method="POST">
-                            @csrf
-                            <button type="submit" class="btn btn-danger" value="{{$r->id}}" name="idDelete">Usuń</button>
-                        </form>
+                        <button class="btn btn-danger"><a class="text-white" href="{{route('result.delete', $r->id)}}">Usuń</a></button>
                     </td>
                     <td>
-                        <form action="/result/edit" method="POST">
-                            @csrf
-                            <button type="submit" class="btn btn-warning" value="{{$r->id}}" name="idEdit">Zmień</button>
-                        </form>
+                        <button class="btn btn-warning"><a class="text-white" href="{{route('result.edit', $r->id)}}">Edytuj</a></button>
                     </td>
                 </tr>
             @endif

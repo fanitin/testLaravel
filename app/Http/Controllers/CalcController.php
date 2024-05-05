@@ -47,7 +47,7 @@ class CalcController extends Controller{
 
 
     public function genView(){
-        return view('calc', ['form' => $this->form, 'result' => $this->result]);
+        return view('calc.index', ['form' => $this->form, 'result' => $this->result]);
     }
 
 
