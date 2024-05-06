@@ -21,7 +21,7 @@
         <fieldset>
             <div class="flex justify-content-space-between">
                 <select name="sortType">
-                    <option value="id_wynik" @if ($sortType == 'id')selected @endif>Id</option>
+                    <option value="id" @if ($sortType == 'id')selected @endif>Id</option>
                     <option value="kwota" @if ($sortType == 'kwota')selected @endif>Kwota</option>
                     <option value="years" @if ($sortType == 'years')selected @endif>Years</option>
                     <option value="procent" @if ($sortType == 'procent')selected @endif>Procent</option>
@@ -48,6 +48,7 @@
             <th>Wynik</th>
             <th>Data</th>
             <th>Phone</th>
+            <th>Kategoria</th>
             <th>Usuwanie</th>
             <th>Edycja</th>
         <tr>
@@ -59,10 +60,15 @@
                     <td>{{ $r->years }}</td>
                     <td>{{ $r->procent }}</td>
                     <td>{{ $r->wynik }}</td>
-                    <td>{{ $r->data }}</td>
+                    <td>{{$r->created_at}}</td>
                     <td>{{ $r->phone }}</td>
+                    <td>{{ $r->category->name}}</td>
                     <td>
-                        <button class="btn btn-danger"><a class="text-white" href="{{route('result.delete', $r->id)}}">Usuń</a></button>
+                        <form action="{{route('result.delete', $r->id)}}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <input type="submit" class="btn btn-danger" value="Usuń">
+                        </form>
                     </td>
                     <td>
                         <button class="btn btn-warning"><a class="text-white" href="{{route('result.edit', $r->id)}}">Edytuj</a></button>

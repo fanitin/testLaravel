@@ -6,5 +6,5 @@ class CalcForm{
     public $years;
     public $proc;
     public $phone;
-
+    public $category_id;
 }

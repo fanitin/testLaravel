@@ -8,8 +8,8 @@
     <h1 class="text-white display-4 fw-normal">Kalkulator kredytowy</h1>
     <p class="text-white fs-5">Przerobiłem ten program który robiliśmy na czystym PHPie za pomocą Laravel</p>
     <div class="flex justify-content-center">
-        <button class="btn btn-success"><a href="{{ route('calc.index') }}" class="nav-link px-2 link-secondary text-white">Przejdź do kalkulatora</a></button>
-        <button class="btn btn-primary"><a href="{{ route('result.index') }}" class="nav-link px-2 link-secondary text-white">Przejdź do tablicy wyników</a></button>
+        <button onclick="window.location.href='{{ route('calc.index') }}'" class="btn btn-success btn-as-link">Przejdź do kalkulatora</button>
+        <button onclick="window.location.href='{{ route('result.index') }}'" class="btn btn-primary btn-as-link">Przejdź do poprzednich wyników</button>
     </div>
 </div>
 @endsection

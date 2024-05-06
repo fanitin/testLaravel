@@ -17,9 +17,13 @@ return new class extends Migration
             $table->double('years');
             $table->double('procent');
             $table->double('wynik');
-            $table->dateTime('data')->default(date('Y-m-d H:i:s'));
             $table->string('phone');
             $table->softDeletes();
+            $table->timestamps();
+
+
+            $table->unsignedBigInteger('category_id')->nullable();
+            $table->foreign('category_id')->references('id')->on('categories');
         });
     }
 

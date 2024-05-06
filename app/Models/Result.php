@@ -10,6 +10,9 @@ class Result extends Model{
     use HasFactory;
     use SoftDeletes;
     protected $table = 'results';
-    public $timestamps = false;
-    protected $fillable = ['kwota', 'years', 'procent', 'wynik', 'data', 'phone'];
+    protected $fillable = ['kwota', 'years', 'procent', 'wynik', 'phone', 'category_id'];
+
+    public function category(){
+        return $this->belongsTo(Category::class);
+    }
 }

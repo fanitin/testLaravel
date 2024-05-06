@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Forms\CalcForm;
 use App\Http\Controllers\OperationEditController;
+use App\Models\Category;
 
 class CalcController extends Controller{
     private $form;
@@ -21,6 +22,7 @@ class CalcController extends Controller{
         $this->form->years = $request->years;
         $this->form->proc = $request->proc;
         $this->form->phone = $request->phone;
+        $this->form->category_id = $request->category_id;
 
         $valid = $request->validate([
             'kwota' => 'required|numeric',
@@ -47,7 +49,8 @@ class CalcController extends Controller{
 
 
     public function genView(){
-        return view('calc.index', ['form' => $this->form, 'result' => $this->result]);
+        $categories = Category::all();
+        return view('calc.index', ['form' => $this->form, 'result' => $this->result, 'categories' => $categories]);
     }
 
 
@@ -57,6 +60,6 @@ class CalcController extends Controller{
         $this->oectrl->result->procent = $this->form->proc;
         $this->oectrl->result->phone = $this->form->phone;
         $this->oectrl->result->wynik = $this->result;
-        $this->oectrl->result->data = date('Y-m-d H:i:s');
+        $this->oectrl->cat_id = $this->form->category_id;
     }
 }
