@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Forms\CalcForm;
 use App\Http\Controllers\OperationEditController;
 use App\Models\Category;
+use App\Models\Tag;
 
 class CalcController extends Controller{
     private $form;
@@ -23,6 +24,7 @@ class CalcController extends Controller{
         $this->form->proc = $request->proc;
         $this->form->phone = $request->phone;
         $this->form->category_id = $request->category_id;
+        $this->form->tags = $request->tags;
 
         $valid = $request->validate([
             'kwota' => 'required|numeric',
@@ -50,7 +52,8 @@ class CalcController extends Controller{
 
     public function genView(){
         $categories = Category::all();
-        return view('calc.index', ['form' => $this->form, 'result' => $this->result, 'categories' => $categories]);
+        $tags = Tag::all();
+        return view('calc.index', ['form' => $this->form, 'result' => $this->result, 'categories' => $categories, 'tags' => $tags]);
     }
 
 
@@ -61,5 +64,6 @@ class CalcController extends Controller{
         $this->oectrl->result->phone = $this->form->phone;
         $this->oectrl->result->wynik = $this->result;
         $this->oectrl->cat_id = $this->form->category_id;
+        $this->oectrl->tag_id = $this->form->tags;
     }
 }

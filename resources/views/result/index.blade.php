@@ -49,6 +49,7 @@
             <th>Data</th>
             <th>Phone</th>
             <th>Kategoria</th>
+            <th>Tag</th>
             <th>Usuwanie</th>
             <th>Edycja</th>
         <tr>
@@ -63,6 +64,9 @@
                     <td>{{$r->created_at}}</td>
                     <td>{{ $r->phone }}</td>
                     <td>{{ $r->category->name}}</td>
+                    <td>@foreach ($r->tags as $tag)
+                        {{$tag->name}}
+                    @endforeach</td>
                     <td>
                         <form action="{{route('result.delete', $r->id)}}" method="POST">
                             @csrf

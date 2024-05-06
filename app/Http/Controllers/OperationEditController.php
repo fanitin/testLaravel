@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Result;
+use App\Models\ResultTag;
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\Tag;
 
 class OperationEditController extends Controller{
     public $result;
@@ -13,6 +15,7 @@ class OperationEditController extends Controller{
     private $sortType;
     private $sortOrder;
     public $cat_id;
+    public $tag_id = array();
 
     public function __construct(){
         $this->result = new Result();
@@ -29,7 +32,14 @@ class OperationEditController extends Controller{
                 'phone' => $this->result->phone,
                 'category_id' => $this->cat_id
             ];
-            Result::create($data);
+            $result = Result::create($data);
+            $result->tags()->attach($this->tag_id);
+            /*foreach ($this->tag_id as $tag) {
+                ResultTag::firstOrCreate([
+                    'result_id' => $result->id,
+                     'tag_id' => $tag
+                ]);
+            } to inny sposob, raczej go bede uzywal przy pisaniu projektu zaliczeniowego, bo też można dodac ilosc produktów np*/
         } catch (\Exception $e) {
             dd($e->getMessage());
         }
@@ -50,7 +60,8 @@ class OperationEditController extends Controller{
     
     public function operationSendToEdit(Result $result){
         $categories = Category::all();
-        return view('result.edit', ['result' => $result, 'categories' => $categories]);
+        $tags = Tag::all();
+        return view('result.edit', ['result' => $result, 'categories' => $categories, 'tags' => $tags]);
     }
 
 
@@ -65,6 +76,7 @@ class OperationEditController extends Controller{
             'phone' => 'required|string|regex:/^\+48[0-9]{9}$/'
         ]);
         $id = $request->input('idEdit');
+        $tags = $request->input('tags');
         $operation = Result::find($id);
         $operation->update([
             'kwota' => $request->input('kwota'),
@@ -74,6 +86,7 @@ class OperationEditController extends Controller{
             'phone' => $request->input('phone'),
             'category_id' => $request->input('category_id')
         ]);
+        $operation->tags()->sync($tags);
         return redirect()->route('result.index');
     }
 

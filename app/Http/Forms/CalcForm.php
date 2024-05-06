@@ -7,4 +7,5 @@ class CalcForm{
     public $proc;
     public $phone;
     public $category_id;
+    public $tags = array();
 }
