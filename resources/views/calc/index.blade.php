@@ -5,33 +5,33 @@
 
 @section('main_content')
 <h1 class="text-white">Kalkulator kredytowy</h1>
-<form action="{{ route('calc.compute')}}" method="post">
+<form action="{{ route('result.save')}}" method="post">
     @csrf
     <div class="container">
         <div class="row">
             <div class="col-md-4">
                 <label for="id_kwota" class="text-white">Podaj kwotę:</label>
-                <input id="id_kwota" type="text" placeholder="Wartość kwoty" name="kwota" class="form-control">
+                <input id="id_kwota" type="text" placeholder="Wartość kwoty" name="kwota" class="form-control" value="{{old('kwota')}}">
             </div>
             <div class="col-md-4">
                 <label for="id_years" class="text-white">Podaj ilość lat:</label>
-                <input id="id_years" type="text" placeholder="Liczba lat" name="years" class="form-control">
+                <input id="id_years" type="text" placeholder="Liczba lat" name="years" class="form-control" value="{{old('years')}}">
             </div>
             <div class="col-md-4">
                 <label for="id_proc" class="text-white">Podaj oprocentowanie:</label>
-                <input id="id_proc" type="text" placeholder="Wartość oprocentowania" name="proc" class="form-control">
+                <input id="id_proc" type="text" placeholder="Wartość oprocentowania" name="proc" class="form-control" value="{{old('proc')}}">
             </div>
         </div>
         <div class="row mt-3">
             <div class="col-md-6">
                 <label for="id_phone" class="text-white">Podaj numer telefonu:</label>
-                <input id="id_phone" type="text" placeholder="+48XXXXXXXXX" name="phone" class="form-control">
+                <input id="id_phone" type="text" placeholder="+48XXXXXXXXX" name="phone" class="form-control" value="{{old('phone')}}">
             </div>
             <div class="col-md-6">
                 <label for="inputState" class="text-white">Podaj kategorię:</label>
                 <select id="inputState" class="form-select" name="category_id">
                     @foreach ($categories as $category)
-                        <option value="{{$category->id}}">{{$category->name}}</option>
+                        <option value="{{$category->id}}" {{old('category_id') == $category->id ? 'selected' : ''}}>{{$category->name}}</option>
                     @endforeach
                 </select>
             </div>
@@ -43,7 +43,8 @@
             <div class="col-md-10">
                 @foreach ($tags as $tag)
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="inlineCheckbox{{$tag->id}}" value="{{$tag->id}}" name="tags[]">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox{{$tag->id}}" value="{{$tag->id}}" name="tags[]" 
+                        @if (is_array(old('tags')) && in_array($tag->id, old('tags'))) checked @endif>
                         <label class="form-check-label text-white" for="inlineCheckbox{{$tag->id}}">{{$tag->name}}</label>
                     </div>
                 @endforeach
@@ -57,8 +58,8 @@
     </div>
 </form>
 
-@if (isset($result))
-    <p class="text-white">Kwota: {{$form->kwota}}, lat: {{$form->years}}, oprocentowanie: {{$form->proc}}</p>
-    <p class="text-white">Wynik: {{$result}}</p>
+@if (isset($wynik))
+    <p class="text-white">Kwota: {{$kwota}}, lat: {{$years}}, oprocentowanie: {{$procent}}</p>
+    <p class="text-white">Wynik: {{$wynik}}</p>
 @endif
 @endsection

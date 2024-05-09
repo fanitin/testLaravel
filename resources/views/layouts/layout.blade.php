@@ -25,10 +25,11 @@
 
     <div class="container">
         @yield('main_content')
+        <br>
     </div>
 
     @if ($errors->any())
-    <div class="alert alert-danger">
+    <div class="container alert alert-danger">
         <ul>
             @foreach ($errors->all() as $error)
                 <li>{{ $error }}</li>

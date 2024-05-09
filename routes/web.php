@@ -2,20 +2,20 @@
 
 use App\Http\Controllers\CalcController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\OperationEditController;
 use Illuminate\Support\Facades\Route;
 
+
+
+Route::group(['namespace' => 'App\Http\Controllers\Result'], function () {
+    Route::get('/result', IndexController::class)->name('result.index');
+    Route::delete('/result/delete/{result}', DeleteController::class)->name('result.delete');
+    Route::get('/result/edit/{result}', EditController::class)->name('result.edit');
+    Route::patch('/result/edited', EditedController::class)->name('result.edited');
+    Route::post('/result', IndexController::class)->name('result.search');
+    Route::post('/calc', SaveController::class)->name('result.save');
+});
+
+
+
 Route::get('/', [HomeController::class, 'home'])->name('home.index');
-Route::get('/calc', [CalcController::class, 'genView'])->name('calc.index');
-Route::get('/result', [OperationEditController::class, 'index'])->name('result.index');
-Route::delete('/result/delete/{result}', [OperationEditController::class,'destroy'])->name('result.delete');
-Route::get('/result/edit/{result}', [OperationEditController::class,'operationSendToEdit'])->name('result.edit');
-
-
-
-Route::post('/result', [OperationEditController::class, 'index'])->name('result.search');
-Route::post('/calc', [CalcController::class, 'calcCompute'])->name('calc.compute');
-
-
-
-Route::patch('/result/edited', [OperationEditController::class,'edit'])->name('result.edited');
+Route::get('/calc', [CalcController::class, 'index'])->name('calc.index');
