@@ -18,8 +18,8 @@
                 <input id="id_years" type="text" placeholder="Liczba lat" name="years" class="form-control" value="{{old('years')}}">
             </div>
             <div class="col-md-4">
-                <label for="id_proc" class="text-white">Podaj oprocentowanie:</label>
-                <input id="id_proc" type="text" placeholder="Wartość oprocentowania" name="proc" class="form-control" value="{{old('proc')}}">
+                <label for="id_procent" class="text-white">Podaj oprocentowanie:</label>
+                <input id="id_procent" type="text" placeholder="Wartość oprocentowania" name="procent" class="form-control" value="{{old('procent')}}">
             </div>
         </div>
         <div class="row mt-3">
@@ -58,8 +58,8 @@
     </div>
 </form>
 
-@if (isset($wynik))
-    <p class="text-white">Kwota: {{$kwota}}, lat: {{$years}}, oprocentowanie: {{$procent}}</p>
-    <p class="text-white">Wynik: {{$wynik}}</p>
+@if (isset($data['wynik']))
+    <p class="text-white">Kwota: {{$data['kwota']}}, lat: {{$data['years']}}, oprocentowanie: {{$data['procent']}}</p>
+    <p class="text-white">Wynik: {{$data['wynik']}}</p>
 @endif
 @endsection

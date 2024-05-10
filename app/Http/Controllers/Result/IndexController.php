@@ -3,10 +3,8 @@
 namespace App\Http\Controllers\Result;
 use App\Models\Result;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
-class IndexController extends Controller
-{
+class IndexController extends BaseController{
     public function __invoke(REQUEST $request){
         $searchForm = $request->input("searchForm");
         $sortType = $request->input("sortType");

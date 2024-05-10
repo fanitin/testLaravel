@@ -10,7 +10,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Result'], function () {
     Route::get('/result', IndexController::class)->name('result.index');
     Route::delete('/result/delete/{result}', DeleteController::class)->name('result.delete');
     Route::get('/result/edit/{result}', EditController::class)->name('result.edit');
-    Route::patch('/result/edited', EditedController::class)->name('result.edited');
+    Route::patch('/result/edited/{result}', EditedController::class)->name('result.edited');
     Route::post('/result', IndexController::class)->name('result.search');
     Route::post('/calc', SaveController::class)->name('result.save');
 });

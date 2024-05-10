@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers\Result;
 use App\Models\Result;
-use App\Http\Controllers\Controller;
 
-class DeleteController extends Controller
-{
+class DeleteController extends BaseController{
     public function __invoke(Result $result){
         try{
             if($result->deleted_at == null){

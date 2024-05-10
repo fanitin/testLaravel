@@ -5,10 +5,9 @@
 
 @section('main_content')
 <h1 class="text-white">Edycja wpisu o id {{$result->id}}</h1>
-<form action="{{route('result.edited')}}" method="POST">
+<form action="{{route('result.edited', $result->id)}}" method="POST">
     @csrf
     @method('patch')
-    <input type="hidden" name="idEdit" value="{{$result->id}}">
     <div class="container">
         <div class="row">
             <div class="col-md-4">
