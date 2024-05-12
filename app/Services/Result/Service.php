@@ -18,5 +18,11 @@ class Service{
         $operation = Result::find($result->id);
         $operation->update($data);
         $operation->tags()->sync($tags);
+        /*foreach ($this->tag_id as $tag) {
+                    ResultTag::firstOrCreate([
+                        'result_id' => $result->id,
+                         'tag_id' => $tag
+                    ]);
+                } to inny sposob, raczej go bede uzywal przy pisaniu projektu zaliczeniowego, bo też można dodac ilosc produktów np*/
     }
 }

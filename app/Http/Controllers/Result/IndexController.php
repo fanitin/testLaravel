@@ -17,11 +17,20 @@ class IndexController extends BaseController{
         }
 
         if (!empty($sortType) && !empty($sortOrder)) {
-            $query->orderBy($sortType, $sortOrder);
+            if ($sortType === 'category_id') {
+                $query->join('categories', 'results.category_id', '=', 'categories.id')
+                ->orderBy('categories.name', $sortOrder)
+                ->select('results.*');
+            } else if($sortType == 'data'){
+                $query->orderBy('created_at', $sortOrder)->orderBy('updated_at', $sortOrder);
+            }else{
+                $query->orderBy($sortType, $sortOrder);
+            }
         }
 
         try {
-            $records = $query->get();
+            $records = $query->paginate(20);
+            $records->appends(['sortType' => $sortType, 'sortOrder' => $sortOrder]);
             return view('result.index', ['records' => $records, 'sortType' => $sortType, 'sortOrder' => $sortOrder, 'searchForm' => $searchForm]);
         } catch (\Exception $e) {
             return redirect()->back()->withErrors('Wystąpił błąd: ' . $e->getMessage());

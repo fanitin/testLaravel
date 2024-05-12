@@ -28,6 +28,7 @@
                     <option value="wynik" @if ($sortType == 'wynik')selected @endif>Wynik</option>
                     <option value="data" @if ($sortType == 'data')selected @endif>Data</option>
                     <option value="phone" @if ($sortType == 'phone')selected @endif>Phone</option>
+                    <option value="category_id" @if ($sortType == 'category_id')selected @endif>Kategoria</option>
                 </select>
                 <select name="sortOrder">
                     <option value="ASC" @if ($sortOrder == 'ASC')selected @endif>Rosnąco</option>
@@ -61,11 +62,16 @@
                     <td>{{ $r->years }}</td>
                     <td>{{ $r->procent }}</td>
                     <td>{{ $r->wynik }}</td>
-                    <td>{{$r->created_at}}</td>
+                    <td>@if (isset($r->updated_at))
+                        {{$r->updated_at}}
+                    @else
+                        {{$r->created_at}}
+                    @endif</td>
                     <td>{{ $r->phone }}</td>
                     <td>{{ $r->category->name}}</td>
                     <td>@foreach ($r->tags as $tag)
-                        {{$tag->name}}
+                        {{ ucfirst($tag->name) }}
+                        @if (!$loop->last), @endif
                     @endforeach</td>
                     <td>
                         <form action="{{route('result.delete', $r->id)}}" method="POST">
@@ -81,4 +87,7 @@
             @endif
         @endforeach
     </table>
+    <div class="text-white mt-3">
+        {{ $records->links() }}
+    </div>
 @endsection
