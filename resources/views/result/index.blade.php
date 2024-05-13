@@ -8,7 +8,16 @@
         <legend class="text-white">Opcje wyszukiwania</legend>
         <fieldset>
             <div class="flex justify-content-space-between">
-                <input type="text" placeholder="Numer telefonu" name="searchForm" value="{{ old('searchForm') }}">
+                <select name="searchType">
+                    <option value="id" {{ isset($data['searchType']) && $data['searchType'] === 'id' ? 'selected' : '' }}>Id</option>
+                    <option value="kwota" {{isset($data['searchType']) && $data['searchType'] === 'kwota' ? 'selected' : ''}}>Kwota</option>
+                    <option value="years" {{isset($data['searchType']) && $data['searchType'] === 'years' ? 'selected' : ''}}>Years</option>
+                    <option value="procent" {{isset($data['searchType']) && $data['searchType'] === 'procent' ? 'selected' : ''}}>Procent</option>
+                    <option value="wynik" {{isset($data['searchType']) && $data['searchType'] === 'wynik' ? 'selected' : ''}}>Wynik</option>
+                    <option value="phone" {{isset($data['searchType']) && $data['searchType'] === 'phone' ? 'selected' : ''}}>Numer telefonu</option>
+                    <option value="categories.name" {{isset($data['searchType']) && $data['searchType'] === 'categories.name' ? 'selected' : ''}}>Kategoria</option>
+                </select>
+                <input type="text" placeholder="..." name="searchForm" value="{{ isset($data['searchForm']) ? $data['searchForm'] : old('searchForm') }}">
                 <button type="submit" class="btn btn-primary">Szukaj</button>
             </div>
         </fieldset>
@@ -21,18 +30,18 @@
         <fieldset>
             <div class="flex justify-content-space-between">
                 <select name="sortType">
-                    <option value="id" @if ($sortType == 'id')selected @endif>Id</option>
-                    <option value="kwota" @if ($sortType == 'kwota')selected @endif>Kwota</option>
-                    <option value="years" @if ($sortType == 'years')selected @endif>Years</option>
-                    <option value="procent" @if ($sortType == 'procent')selected @endif>Procent</option>
-                    <option value="wynik" @if ($sortType == 'wynik')selected @endif>Wynik</option>
-                    <option value="data" @if ($sortType == 'data')selected @endif>Data</option>
-                    <option value="phone" @if ($sortType == 'phone')selected @endif>Phone</option>
-                    <option value="category_id" @if ($sortType == 'category_id')selected @endif>Kategoria</option>
+                    <option value="id" {{isset($data['sortType']) && $data['sortType'] === 'id' ? 'selected' : ''}}>Id</option>
+                    <option value="kwota" {{isset($data['sortType']) && $data['sortType'] === 'kwota' ? 'selected' : ''}}>Kwota</option>
+                    <option value="years" {{isset($data['sortType']) && $data['sortType'] === 'years' ? 'selected' : ''}}>Years</option>
+                    <option value="procent" {{isset($data['sortType']) && $data['sortType'] === 'procent' ? 'selected' : ''}}>Procent</option>
+                    <option value="wynik" {{isset($data['sortType']) && $data['sortType'] === 'wynik' ? 'selected' : ''}}>Wynik</option>
+                    <option value="data" {{isset($data['sortType']) && $data['sortType'] === 'data' ? 'selected' : ''}}>Data</option>
+                    <option value="phone" {{isset($data['sortType']) && $data['sortType'] === 'phone' ? 'selected' : ''}}>Numer telefonu</option>
+                    <option value="category_id" {{isset($data['sortType']) && $data['sortType'] === 'category_id' ? 'selected' : ''}}>Kategoria</option>
                 </select>
                 <select name="sortOrder">
-                    <option value="ASC" @if ($sortOrder == 'ASC')selected @endif>Rosnąco</option>
-                    <option value="DESC" @if ($sortOrder == 'DESC')selected @endif>Malejąco</option>
+                    <option value="ASC" {{isset($data['sortOrder']) && $data['sortOrder'] === 'ASC' ? 'selected' : ''}}>Rosnąco</option>
+                    <option value="DESC" {{isset($data['sortOrder']) && $data['sortOrder'] === 'DESC' ? 'selected' : ''}}>Malejąco</option>
                 </select>
                 <button type="submit" class="btn btn-primary">Sortuj</button>
             </div>
@@ -88,6 +97,6 @@
         @endforeach
     </table>
     <div class="text-white mt-3">
-        {{ $records->links() }}
+        {{ $records->appends(request()->input())->links() }}
     </div>
 @endsection
