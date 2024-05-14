@@ -40,7 +40,16 @@
               <i class="nav-icon fa fa-sharp fa-solid fa-list"></i>
               <p>
                 Results
-                <span class="badge badge-info right">{{$results->total()}}</span>
+                <span class="badge badge-info right">{{$resultsNavbar}}</span>
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{route('admin.user.index')}}" class="nav-link">
+              <i class="nav-icon fa fa-sharp fa-solid fa-list"></i>
+              <p>
+                Users
+                <span class="badge badge-info right">{{$usersNavbar}}</span>
               </p>
             </a>
           </li>

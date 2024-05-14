@@ -11,5 +11,14 @@
         <button onclick="window.location.href='{{ route('calc.index') }}'" class="btn btn-success btn-as-link">Przejdź do kalkulatora</button>
         <button onclick="window.location.href='{{ route('result.index') }}'" class="btn btn-primary btn-as-link">Przejdź do poprzednich wyników</button>
     </div>
+    <div class="card-header">{{ __('Dashboard') }}</div>
+    <div class="card-body">
+        @if (session('status'))
+            <div class="alert alert-success" role="alert">
+                {{ session('status') }}
+            </div>
+        @endif
+        {{ __('You are logged in!') }}
+    </div>
 </div>
 @endsection
