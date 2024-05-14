@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('layouts.main')
 @section('page_title')
     Edycja
 @endsection
