@@ -25,7 +25,9 @@ class FilterRequest extends FormRequest
             'searchType' => '',
             'searchForm' => '',
             'sortType' => '',
-            'sortOrder' => ''
+            'sortOrder' => '',
+            'page' => 'numeric',
+            'perPage' => 'numeric'
         ];
     }
 }

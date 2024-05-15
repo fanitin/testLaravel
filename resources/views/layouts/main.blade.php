@@ -14,7 +14,9 @@
     <ul class="nav col-12 col-md-auto mb-2 justify-content-start mb-md-0">
         <li><a href="{{route('home.index')}}" class="nav-link px-2 link-secondary text-white">Strona główna</a></li>
         <li><a href="{{route('calc.index')}}" class="nav-link px-2 link-dark text-white">Oblicz</a></li>
-        <li><a href="{{route('result.index')}}" class="nav-link px-2 link-dark text-white">Poprzednie wyniki</a></li>
+        @if (Auth::check() && Auth::user()->hasRole(['admin', 'worker']))
+            <li><a href="{{route('result.index')}}" class="nav-link px-2 link-dark text-white">Poprzednie wyniki</a></li>
+        @endif
     </ul>
 
     <div class="col-md-3 text-end ms-auto">
@@ -34,7 +36,7 @@
 
                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                     @if (Auth::user()->hasRole(['admin']))
-                        <a href="{{ route('admin.index') }}" class="dropdown-item">Panel administratora</a>
+                        <a href="{{ route('admin.home.index') }}" class="dropdown-item">Panel administratora</a>
                     @endif
                     <a class="dropdown-item" href="{{ route('logout') }}"
                         onclick="event.preventDefault();
@@ -67,6 +69,20 @@
         </ul>
     </div>
 @endif
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        // Ваши AJAX-запросы и другие скрипты здесь
+    });
+</script>
 </body>
 
 </html>

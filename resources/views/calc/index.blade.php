@@ -58,8 +58,8 @@
     </div>
 </form>
 
-@if (isset($data['wynik']))
-    <p class="text-white">Kwota: {{$data['kwota']}}, lat: {{$data['years']}}, oprocentowanie: {{$data['procent']}}</p>
-    <p class="text-white">Wynik: {{$data['wynik']}}</p>
+@if (isset($result->wynik))
+    <p class="text-white">Kwota: {{$result->kwota}}, lat: {{$result->years}}, oprocentowanie: {{$result->procent}}</p>
+    <p class="text-white">Wynik: {{$result->wynik}}</p>
 @endif
 @endsection

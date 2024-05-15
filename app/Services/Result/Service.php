@@ -10,7 +10,7 @@ class Service{
         $tags_id = $data['tags'];
         $result = Result::create($data);
         $result->tags()->attach($tags_id);
-        return $data;
+        return $result;
     }
 
     public function edited($data, $result){

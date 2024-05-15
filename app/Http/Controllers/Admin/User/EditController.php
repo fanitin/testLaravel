@@ -13,8 +13,12 @@ class EditController extends BaseController{
     }
 
     public function edit(Request $request, User $user){
-        $data = $request->roles;
-        $this->service->edit($data, $user);
-        return redirect()->route('admin.user.index');
+        try{
+            $data = $request->roles;
+            $this->service->edit($data, $user);
+            return redirect()->route('admin.user.index');
+        }catch(\Exception $e){
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 }
